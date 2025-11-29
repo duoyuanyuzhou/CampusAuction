@@ -1,7 +1,7 @@
 package org.multiverse.campusauction.service.impl;
 
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
-import generator.domain.BidRecord;
+import org.multiverse.campusauction.entity.domain.BidRecord;
 import org.multiverse.campusauction.service.BidRecordService;
 import org.multiverse.campusauction.mapper.BidRecordMapper;
 import org.springframework.stereotype.Service;

@@ -1,7 +1,7 @@
 package org.multiverse.campusauction.service;
 
-import generator.domain.AuctionDelayConfig;
 import com.baomidou.mybatisplus.extension.service.IService;
+import org.multiverse.campusauction.entity.domain.AuctionDelayConfig;
 
 /**
 * @author jiaxi

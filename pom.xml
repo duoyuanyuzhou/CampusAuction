@@ -68,6 +68,13 @@
             <artifactId>sa-token-spring-boot3-starter</artifactId>
             <version>1.44.0</version>
         </dependency>
+        <!--        knife4j依赖-->
+        <dependency>
+            <groupId>com.github.xiaoymin</groupId>
+            <artifactId>knife4j-openapi3-jakarta-spring-boot-starter</artifactId>
+            <version>4.4.0</version>
+        </dependency>
+
     </dependencies>
 
     <build>

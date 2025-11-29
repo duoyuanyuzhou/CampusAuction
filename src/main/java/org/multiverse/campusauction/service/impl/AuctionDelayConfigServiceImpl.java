@@ -1,7 +1,7 @@
 package org.multiverse.campusauction.service.impl;
 
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
-import generator.domain.AuctionDelayConfig;
+import org.multiverse.campusauction.entity.domain.AuctionDelayConfig;
 import org.multiverse.campusauction.service.AuctionDelayConfigService;
 import org.multiverse.campusauction.mapper.AuctionDelayConfigMapper;
 import org.springframework.stereotype.Service;

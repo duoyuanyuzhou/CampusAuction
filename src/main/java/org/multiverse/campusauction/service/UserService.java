@@ -1,7 +1,7 @@
 package org.multiverse.campusauction.service;
 
-import generator.domain.User;
 import com.baomidou.mybatisplus.extension.service.IService;
+import org.multiverse.campusauction.entity.domain.User;
 
 /**
 * @author jiaxi

@@ -1,7 +1,7 @@
 package org.multiverse.campusauction.service.impl;
 
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
-import generator.domain.AuctionItemImage;
+import org.multiverse.campusauction.entity.domain.AuctionItemImage;
 import org.multiverse.campusauction.service.AuctionItemImageService;
 import org.multiverse.campusauction.mapper.AuctionItemImageMapper;
 import org.springframework.stereotype.Service;

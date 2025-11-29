@@ -1,7 +1,7 @@
 package org.multiverse.campusauction.service;
 
-import generator.domain.BidRecord;
 import com.baomidou.mybatisplus.extension.service.IService;
+import org.multiverse.campusauction.entity.domain.BidRecord;
 
 /**
 * @author jiaxi

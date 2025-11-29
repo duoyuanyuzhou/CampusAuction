@@ -1,7 +1,7 @@
 package org.multiverse.campusauction.service.impl;
 
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
-import generator.domain.OrderInfo;
+import org.multiverse.campusauction.entity.domain.OrderInfo;
 import org.multiverse.campusauction.service.OrderInfoService;
 import org.multiverse.campusauction.mapper.OrderInfoMapper;
 import org.springframework.stereotype.Service;
