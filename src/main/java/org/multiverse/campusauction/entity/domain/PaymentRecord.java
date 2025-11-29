@@ -1,19 +1,20 @@
-package org.multiverse.campusauction.domain;
+package org.multiverse.campusauction.entity.domain;
 
 import com.baomidou.mybatisplus.annotation.IdType;
 import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
+import java.math.BigDecimal;
 import java.util.Date;
 import lombok.Data;
 
 /**
- * 用户消息表
- * @TableName user_message
+ * 支付记录表
+ * @TableName payment_record
  */
-@TableName(value ="user_message")
+@TableName(value ="payment_record")
 @Data
-public class UserMessage {
+public class PaymentRecord {
     /**
      * 主键ID
      */
@@ -21,31 +22,37 @@ public class UserMessage {
     private Long id;
 
     /**
-     * 接收用户ID
+     * 关联订单ID
      */
-    @TableField(value = "user_id")
-    private Long userId;
+    @TableField(value = "order_id")
+    private Long orderId;
 
     /**
-     * 消息类型，如0系统消息 1竞拍消息
+     * 支付金额
      */
-    @TableField(value = "type")
-    private Integer type;
+    @TableField(value = "amount")
+    private BigDecimal amount;
 
     /**
-     * 消息内容
+     * 支付方式，如支付宝/微信/银行卡
      */
-    @TableField(value = "content")
-    private String content;
+    @TableField(value = "pay_type")
+    private String payType;
 
     /**
-     * 是否已读 0=未读 1=已读
+     * 支付状态 0=未支付 1=已支付 2=支付失败
      */
-    @TableField(value = "is_read")
-    private Integer isRead;
+    @TableField(value = "pay_status")
+    private Integer payStatus;
 
     /**
-     * 消息创建时间
+     * 支付时间
+     */
+    @TableField(value = "pay_time")
+    private Date payTime;
+
+    /**
+     * 创建时间
      */
     @TableField(value = "create_time")
     private Date createTime;
@@ -73,12 +80,13 @@ public class UserMessage {
         if (getClass() != that.getClass()) {
             return false;
         }
-        UserMessage other = (UserMessage) that;
+        PaymentRecord other = (PaymentRecord) that;
         return (this.getId() == null ? other.getId() == null : this.getId().equals(other.getId()))
-            && (this.getUserId() == null ? other.getUserId() == null : this.getUserId().equals(other.getUserId()))
-            && (this.getType() == null ? other.getType() == null : this.getType().equals(other.getType()))
-            && (this.getContent() == null ? other.getContent() == null : this.getContent().equals(other.getContent()))
-            && (this.getIsRead() == null ? other.getIsRead() == null : this.getIsRead().equals(other.getIsRead()))
+            && (this.getOrderId() == null ? other.getOrderId() == null : this.getOrderId().equals(other.getOrderId()))
+            && (this.getAmount() == null ? other.getAmount() == null : this.getAmount().equals(other.getAmount()))
+            && (this.getPayType() == null ? other.getPayType() == null : this.getPayType().equals(other.getPayType()))
+            && (this.getPayStatus() == null ? other.getPayStatus() == null : this.getPayStatus().equals(other.getPayStatus()))
+            && (this.getPayTime() == null ? other.getPayTime() == null : this.getPayTime().equals(other.getPayTime()))
             && (this.getCreateTime() == null ? other.getCreateTime() == null : this.getCreateTime().equals(other.getCreateTime()))
             && (this.getUpdateTime() == null ? other.getUpdateTime() == null : this.getUpdateTime().equals(other.getUpdateTime()))
             && (this.getDelFlag() == null ? other.getDelFlag() == null : this.getDelFlag().equals(other.getDelFlag()));
@@ -89,10 +97,11 @@ public class UserMessage {
         final int prime = 31;
         int result = 1;
         result = prime * result + ((getId() == null) ? 0 : getId().hashCode());
-        result = prime * result + ((getUserId() == null) ? 0 : getUserId().hashCode());
-        result = prime * result + ((getType() == null) ? 0 : getType().hashCode());
-        result = prime * result + ((getContent() == null) ? 0 : getContent().hashCode());
-        result = prime * result + ((getIsRead() == null) ? 0 : getIsRead().hashCode());
+        result = prime * result + ((getOrderId() == null) ? 0 : getOrderId().hashCode());
+        result = prime * result + ((getAmount() == null) ? 0 : getAmount().hashCode());
+        result = prime * result + ((getPayType() == null) ? 0 : getPayType().hashCode());
+        result = prime * result + ((getPayStatus() == null) ? 0 : getPayStatus().hashCode());
+        result = prime * result + ((getPayTime() == null) ? 0 : getPayTime().hashCode());
         result = prime * result + ((getCreateTime() == null) ? 0 : getCreateTime().hashCode());
         result = prime * result + ((getUpdateTime() == null) ? 0 : getUpdateTime().hashCode());
         result = prime * result + ((getDelFlag() == null) ? 0 : getDelFlag().hashCode());
@@ -106,10 +115,11 @@ public class UserMessage {
         sb.append(" [");
         sb.append("Hash = ").append(hashCode());
         sb.append(", id=").append(id);
-        sb.append(", userId=").append(userId);
-        sb.append(", type=").append(type);
-        sb.append(", content=").append(content);
-        sb.append(", isRead=").append(isRead);
+        sb.append(", orderId=").append(orderId);
+        sb.append(", amount=").append(amount);
+        sb.append(", payType=").append(payType);
+        sb.append(", payStatus=").append(payStatus);
+        sb.append(", payTime=").append(payTime);
         sb.append(", createTime=").append(createTime);
         sb.append(", updateTime=").append(updateTime);
         sb.append(", delFlag=").append(delFlag);

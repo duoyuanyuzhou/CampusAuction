@@ -4,7 +4,7 @@
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="org.multiverse.campusauction.mapper.OrderInfoMapper">
 
-    <resultMap id="BaseResultMap" type="org.multiverse.campusauction.domain.OrderInfo">
+    <resultMap id="BaseResultMap" type="org.multiverse.campusauction.entity.domain.OrderInfo">
             <id property="id" column="id" />
             <result property="itemId" column="item_id" />
             <result property="buyerId" column="buyer_id" />

@@ -1,6 +1,6 @@
 package org.multiverse.campusauction.mapper;
 
-import org.multiverse.campusauction.domain.User;
+import org.multiverse.campusauction.entity.domain.User;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 
 /**

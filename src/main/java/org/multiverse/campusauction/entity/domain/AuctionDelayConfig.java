@@ -1,20 +1,19 @@
-package org.multiverse.campusauction.domain;
+package org.multiverse.campusauction.entity.domain;
 
 import com.baomidou.mybatisplus.annotation.IdType;
 import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
-import java.math.BigDecimal;
 import java.util.Date;
 import lombok.Data;
 
 /**
- * 支付记录表
- * @TableName payment_record
+ * 拍卖延时规则表
+ * @TableName auction_delay_config
  */
-@TableName(value ="payment_record")
+@TableName(value ="auction_delay_config")
 @Data
-public class PaymentRecord {
+public class AuctionDelayConfig {
     /**
      * 主键ID
      */
@@ -22,34 +21,16 @@ public class PaymentRecord {
     private Long id;
 
     /**
-     * 关联订单ID
+     * 每次延迟秒数（如30秒）
      */
-    @TableField(value = "order_id")
-    private Long orderId;
+    @TableField(value = "delay_seconds")
+    private Integer delaySeconds;
 
     /**
-     * 支付金额
+     * 若结束前多少秒内出价触发延时
      */
-    @TableField(value = "amount")
-    private BigDecimal amount;
-
-    /**
-     * 支付方式，如支付宝/微信/银行卡
-     */
-    @TableField(value = "pay_type")
-    private String payType;
-
-    /**
-     * 支付状态 0=未支付 1=已支付 2=支付失败
-     */
-    @TableField(value = "pay_status")
-    private Integer payStatus;
-
-    /**
-     * 支付时间
-     */
-    @TableField(value = "pay_time")
-    private Date payTime;
+    @TableField(value = "threshold_seconds")
+    private Integer thresholdSeconds;
 
     /**
      * 创建时间
@@ -80,13 +61,10 @@ public class PaymentRecord {
         if (getClass() != that.getClass()) {
             return false;
         }
-        PaymentRecord other = (PaymentRecord) that;
+        AuctionDelayConfig other = (AuctionDelayConfig) that;
         return (this.getId() == null ? other.getId() == null : this.getId().equals(other.getId()))
-            && (this.getOrderId() == null ? other.getOrderId() == null : this.getOrderId().equals(other.getOrderId()))
-            && (this.getAmount() == null ? other.getAmount() == null : this.getAmount().equals(other.getAmount()))
-            && (this.getPayType() == null ? other.getPayType() == null : this.getPayType().equals(other.getPayType()))
-            && (this.getPayStatus() == null ? other.getPayStatus() == null : this.getPayStatus().equals(other.getPayStatus()))
-            && (this.getPayTime() == null ? other.getPayTime() == null : this.getPayTime().equals(other.getPayTime()))
+            && (this.getDelaySeconds() == null ? other.getDelaySeconds() == null : this.getDelaySeconds().equals(other.getDelaySeconds()))
+            && (this.getThresholdSeconds() == null ? other.getThresholdSeconds() == null : this.getThresholdSeconds().equals(other.getThresholdSeconds()))
             && (this.getCreateTime() == null ? other.getCreateTime() == null : this.getCreateTime().equals(other.getCreateTime()))
             && (this.getUpdateTime() == null ? other.getUpdateTime() == null : this.getUpdateTime().equals(other.getUpdateTime()))
             && (this.getDelFlag() == null ? other.getDelFlag() == null : this.getDelFlag().equals(other.getDelFlag()));
@@ -97,11 +75,8 @@ public class PaymentRecord {
         final int prime = 31;
         int result = 1;
         result = prime * result + ((getId() == null) ? 0 : getId().hashCode());
-        result = prime * result + ((getOrderId() == null) ? 0 : getOrderId().hashCode());
-        result = prime * result + ((getAmount() == null) ? 0 : getAmount().hashCode());
-        result = prime * result + ((getPayType() == null) ? 0 : getPayType().hashCode());
-        result = prime * result + ((getPayStatus() == null) ? 0 : getPayStatus().hashCode());
-        result = prime * result + ((getPayTime() == null) ? 0 : getPayTime().hashCode());
+        result = prime * result + ((getDelaySeconds() == null) ? 0 : getDelaySeconds().hashCode());
+        result = prime * result + ((getThresholdSeconds() == null) ? 0 : getThresholdSeconds().hashCode());
         result = prime * result + ((getCreateTime() == null) ? 0 : getCreateTime().hashCode());
         result = prime * result + ((getUpdateTime() == null) ? 0 : getUpdateTime().hashCode());
         result = prime * result + ((getDelFlag() == null) ? 0 : getDelFlag().hashCode());
@@ -115,11 +90,8 @@ public class PaymentRecord {
         sb.append(" [");
         sb.append("Hash = ").append(hashCode());
         sb.append(", id=").append(id);
-        sb.append(", orderId=").append(orderId);
-        sb.append(", amount=").append(amount);
-        sb.append(", payType=").append(payType);
-        sb.append(", payStatus=").append(payStatus);
-        sb.append(", payTime=").append(payTime);
+        sb.append(", delaySeconds=").append(delaySeconds);
+        sb.append(", thresholdSeconds=").append(thresholdSeconds);
         sb.append(", createTime=").append(createTime);
         sb.append(", updateTime=").append(updateTime);
         sb.append(", delFlag=").append(delFlag);

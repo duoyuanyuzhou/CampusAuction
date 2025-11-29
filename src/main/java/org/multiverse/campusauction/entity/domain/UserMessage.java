@@ -1,4 +1,4 @@
-package org.multiverse.campusauction.domain;
+package org.multiverse.campusauction.entity.domain;
 
 import com.baomidou.mybatisplus.annotation.IdType;
 import com.baomidou.mybatisplus.annotation.TableField;
@@ -8,12 +8,12 @@ import java.util.Date;
 import lombok.Data;
 
 /**
- * 商品图片表
- * @TableName auction_item_image
+ * 用户消息表
+ * @TableName user_message
  */
-@TableName(value ="auction_item_image")
+@TableName(value ="user_message")
 @Data
-public class AuctionItemImage {
+public class UserMessage {
     /**
      * 主键ID
      */
@@ -21,25 +21,31 @@ public class AuctionItemImage {
     private Long id;
 
     /**
-     * 关联商品ID
+     * 接收用户ID
      */
-    @TableField(value = "item_id")
-    private Long itemId;
+    @TableField(value = "user_id")
+    private Long userId;
 
     /**
-     * 图片URL
+     * 消息类型，如0系统消息 1竞拍消息
      */
-    @TableField(value = "url")
-    private String url;
+    @TableField(value = "type")
+    private Integer type;
 
     /**
-     * 排序
+     * 消息内容
      */
-    @TableField(value = "sort")
-    private Integer sort;
+    @TableField(value = "content")
+    private String content;
 
     /**
-     * 创建时间
+     * 是否已读 0=未读 1=已读
+     */
+    @TableField(value = "is_read")
+    private Integer isRead;
+
+    /**
+     * 消息创建时间
      */
     @TableField(value = "create_time")
     private Date createTime;
@@ -67,11 +73,12 @@ public class AuctionItemImage {
         if (getClass() != that.getClass()) {
             return false;
         }
-        AuctionItemImage other = (AuctionItemImage) that;
+        UserMessage other = (UserMessage) that;
         return (this.getId() == null ? other.getId() == null : this.getId().equals(other.getId()))
-            && (this.getItemId() == null ? other.getItemId() == null : this.getItemId().equals(other.getItemId()))
-            && (this.getUrl() == null ? other.getUrl() == null : this.getUrl().equals(other.getUrl()))
-            && (this.getSort() == null ? other.getSort() == null : this.getSort().equals(other.getSort()))
+            && (this.getUserId() == null ? other.getUserId() == null : this.getUserId().equals(other.getUserId()))
+            && (this.getType() == null ? other.getType() == null : this.getType().equals(other.getType()))
+            && (this.getContent() == null ? other.getContent() == null : this.getContent().equals(other.getContent()))
+            && (this.getIsRead() == null ? other.getIsRead() == null : this.getIsRead().equals(other.getIsRead()))
             && (this.getCreateTime() == null ? other.getCreateTime() == null : this.getCreateTime().equals(other.getCreateTime()))
             && (this.getUpdateTime() == null ? other.getUpdateTime() == null : this.getUpdateTime().equals(other.getUpdateTime()))
             && (this.getDelFlag() == null ? other.getDelFlag() == null : this.getDelFlag().equals(other.getDelFlag()));
@@ -82,9 +89,10 @@ public class AuctionItemImage {
         final int prime = 31;
         int result = 1;
         result = prime * result + ((getId() == null) ? 0 : getId().hashCode());
-        result = prime * result + ((getItemId() == null) ? 0 : getItemId().hashCode());
-        result = prime * result + ((getUrl() == null) ? 0 : getUrl().hashCode());
-        result = prime * result + ((getSort() == null) ? 0 : getSort().hashCode());
+        result = prime * result + ((getUserId() == null) ? 0 : getUserId().hashCode());
+        result = prime * result + ((getType() == null) ? 0 : getType().hashCode());
+        result = prime * result + ((getContent() == null) ? 0 : getContent().hashCode());
+        result = prime * result + ((getIsRead() == null) ? 0 : getIsRead().hashCode());
         result = prime * result + ((getCreateTime() == null) ? 0 : getCreateTime().hashCode());
         result = prime * result + ((getUpdateTime() == null) ? 0 : getUpdateTime().hashCode());
         result = prime * result + ((getDelFlag() == null) ? 0 : getDelFlag().hashCode());
@@ -98,9 +106,10 @@ public class AuctionItemImage {
         sb.append(" [");
         sb.append("Hash = ").append(hashCode());
         sb.append(", id=").append(id);
-        sb.append(", itemId=").append(itemId);
-        sb.append(", url=").append(url);
-        sb.append(", sort=").append(sort);
+        sb.append(", userId=").append(userId);
+        sb.append(", type=").append(type);
+        sb.append(", content=").append(content);
+        sb.append(", isRead=").append(isRead);
         sb.append(", createTime=").append(createTime);
         sb.append(", updateTime=").append(updateTime);
         sb.append(", delFlag=").append(delFlag);

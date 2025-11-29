@@ -1,4 +1,4 @@
-package org.multiverse.campusauction.domain;
+package org.multiverse.campusauction.entity.domain;
 
 import com.baomidou.mybatisplus.annotation.IdType;
 import com.baomidou.mybatisplus.annotation.TableField;
