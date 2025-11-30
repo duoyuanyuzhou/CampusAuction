@@ -1,9 +1,11 @@
 package org.multiverse.campusauction;
 
+import org.mybatis.spring.annotation.MapperScan;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 @SpringBootApplication
+@MapperScan("org.multiverse.campusauction.mapper")
 public class CampusAuctionApplication {
 
     public static void main(String[] args) {
