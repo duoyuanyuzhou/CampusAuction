@@ -1,9 +1,7 @@
 package org.multiverse.campusauction.entity.domain;
 
-import com.baomidou.mybatisplus.annotation.IdType;
-import com.baomidou.mybatisplus.annotation.TableField;
-import com.baomidou.mybatisplus.annotation.TableId;
-import com.baomidou.mybatisplus.annotation.TableName;
+import com.baomidou.mybatisplus.annotation.*;
+
 import java.math.BigDecimal;
 import java.util.Date;
 import lombok.Data;
@@ -102,6 +100,7 @@ public class AuctionItem {
     /**
      * 删除逻辑(0默认,1删除)
      */
+    @TableLogic
     @TableField(value = "del_flag")
     private Integer delFlag;
 
