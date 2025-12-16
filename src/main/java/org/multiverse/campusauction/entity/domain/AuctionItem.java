@@ -3,8 +3,12 @@ package org.multiverse.campusauction.entity.domain;
 import com.baomidou.mybatisplus.annotation.*;
 
 import java.math.BigDecimal;
+import java.time.LocalDateTime;
 import java.util.Date;
+
+import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.Data;
+import org.springframework.format.annotation.DateTimeFormat;
 
 /**
  * 
@@ -58,14 +62,18 @@ public class AuctionItem {
     /**
      * 开拍时间
      */
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm")
+    @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm")
     @TableField(value = "start_time")
-    private Date startTime;
+    private LocalDateTime startTime;
 
     /**
      * 结束时间
      */
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm")
+    @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm")
     @TableField(value = "end_time")
-    private Date endTime;
+    private LocalDateTime  endTime;
 
     /**
      * 0草稿 1审核中 2审核通过 3竞拍中 4已成交 5流拍
@@ -88,14 +96,18 @@ public class AuctionItem {
     /**
      * 创建时间
      */
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm")
+    @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm")
     @TableField(value = "create_time")
-    private Date createTime;
+    private LocalDateTime  createTime;
 
     /**
      * 更新时间
      */
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm")
+    @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm")
     @TableField(value = "update_time")
-    private Date updateTime;
+    private LocalDateTime  updateTime;
 
     /**
      * 删除逻辑(0默认,1删除)

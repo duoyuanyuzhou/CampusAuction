@@ -2,6 +2,7 @@ package org.multiverse.campusauction.service;
 
 import com.baomidou.mybatisplus.extension.service.IService;
 import org.multiverse.campusauction.entity.domain.User;
+import org.multiverse.campusauction.entity.vo.ApiResponse;
 
 /**
 * @author jiaxi
@@ -10,4 +11,7 @@ import org.multiverse.campusauction.entity.domain.User;
 */
 public interface UserService extends IService<User> {
 
+    ApiResponse<User> register(User user);
+
+    ApiResponse<User> login(User user);
 }

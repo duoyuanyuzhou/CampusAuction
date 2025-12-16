@@ -1,5 +1,6 @@
 package org.multiverse.campusauction.service;
 
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.baomidou.mybatisplus.extension.service.IService;
 import org.multiverse.campusauction.entity.domain.BidRecord;
 
@@ -10,4 +11,5 @@ import org.multiverse.campusauction.entity.domain.BidRecord;
 */
 public interface BidRecordService extends IService<BidRecord> {
 
+    public Page<BidRecord> getBidRecordPage(Page<BidRecord> page, BidRecord bidRecord);
 }

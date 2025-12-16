@@ -1,5 +1,7 @@
 package org.multiverse.campusauction.service.impl;
 
+import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import org.multiverse.campusauction.entity.domain.BidRecord;
 import org.multiverse.campusauction.service.BidRecordService;
@@ -15,6 +17,14 @@ import org.springframework.stereotype.Service;
 public class BidRecordServiceImpl extends ServiceImpl<BidRecordMapper, BidRecord>
     implements BidRecordService{
 
+    @Override
+    public Page<BidRecord> getBidRecordPage(Page<BidRecord> page, BidRecord bidRecord) {
+        LambdaQueryWrapper<BidRecord> queryWrapper = new LambdaQueryWrapper<>();
+        queryWrapper.eq(BidRecord::getItemId, bidRecord.getItemId());
+        queryWrapper.orderByDesc(BidRecord::getBidTime);
+        Page<BidRecord> bidRecordPage = this.baseMapper.selectPage(page, queryWrapper);
+        return bidRecordPage;
+    }
 }
 
 

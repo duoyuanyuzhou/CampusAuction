@@ -26,6 +26,10 @@ public class ApiResponse<T> {
         return new ApiResponse<>(200, "success", null);
     }
 
+    public static <T> ApiResponse<T> ok(String message,T data) {
+        return new ApiResponse<>(200, message, data);
+    }
+
     // 失败返回
     public static <T> ApiResponse<T> fail(int code, String message) {
         return new ApiResponse<>(code, message, null);
