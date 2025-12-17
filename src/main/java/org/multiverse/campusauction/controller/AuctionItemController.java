@@ -1,11 +1,13 @@
 package org.multiverse.campusauction.controller;
 
 import cn.dev33.satoken.stp.StpUtil;
+import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.core.conditions.update.LambdaUpdateWrapper;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import org.apache.ibatis.annotations.Param;
 import org.multiverse.campusauction.annotation.CheckLogin;
 import org.multiverse.campusauction.annotation.CheckPermission;
+import org.multiverse.campusauction.constant.RedisKeyConstants;
 import org.multiverse.campusauction.entity.domain.AuctionItem;
 import org.multiverse.campusauction.entity.vo.ApiResponse;
 import org.multiverse.campusauction.exception.ApiException;
@@ -13,7 +15,12 @@ import org.multiverse.campusauction.service.AuctionItemService;
 import org.multiverse.campusauction.service.UserService;
 import org.springdoc.core.annotations.ParameterObject;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.web.bind.annotation.*;
+
+import java.time.Duration;
+import java.time.LocalDateTime;
+import java.util.concurrent.TimeUnit;
 
 
 @RestController("/auctionItem")
@@ -21,6 +28,10 @@ public class AuctionItemController {
 
     @Autowired
     private AuctionItemService auctionItemService;
+
+    @Autowired
+    private  RedisTemplate<String, Object> redisTemplate;
+
 
     @Autowired
     private UserService userService;
@@ -63,6 +74,50 @@ public class AuctionItemController {
         AuctionItem auctionItem = auctionItemService.getById(id);
         return ApiResponse.ok(auctionItem);
     }
+
+    @GetMapping("/inProgressAuctionItem/{id}")
+    public ApiResponse<AuctionItem> getInProgressAuctionItem(
+            @PathVariable("id") Long id) {
+
+        String redisKey = RedisKeyConstants.AUCTION_AUDIT_DELAY + id;
+
+        // 1️⃣ 先查 Redis
+        AuctionItem auctionItem =
+                (AuctionItem) redisTemplate.opsForValue().get(redisKey);
+
+        if (auctionItem != null) {
+            return ApiResponse.ok(auctionItem);
+        }
+
+        // 2️⃣ Redis 没有，再查数据库
+        auctionItem = auctionItemService.getOne(
+                new LambdaQueryWrapper<AuctionItem>()
+                        .eq(AuctionItem::getId, id)
+                        .in(AuctionItem::getStatus, 2, 3)
+        );
+
+        if (auctionItem == null) {
+            return ApiResponse.fail("拍卖不存在或未进行中");
+        }
+
+        // 3️⃣ 写入 Redis（设置过期时间）
+        long ttlSeconds = Duration
+                .between(LocalDateTime.now(), auctionItem.getEndTime())
+                .getSeconds();
+
+        if (ttlSeconds > 0) {
+            redisTemplate.opsForValue().set(
+                    redisKey,
+                    auctionItem,
+                    ttlSeconds,
+                    TimeUnit.SECONDS
+            );
+        }
+
+
+        return ApiResponse.ok(auctionItem);
+    }
+
 
     @DeleteMapping("/delete/:id")
     public ApiResponse deleteAuctionItem(@Param("id") Integer id){

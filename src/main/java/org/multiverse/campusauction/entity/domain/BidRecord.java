@@ -3,6 +3,7 @@ package org.multiverse.campusauction.entity.domain;
 import com.baomidou.mybatisplus.annotation.*;
 
 import java.math.BigDecimal;
+import java.time.LocalDateTime;
 import java.util.Date;
 import lombok.Data;
 
@@ -41,7 +42,7 @@ public class BidRecord {
      * 出价时间
      */
     @TableField(value = "bid_time")
-    private Date bidTime;
+    private LocalDateTime bidTime;
 
     /**
      * 是否最终中标 0=否 1=是
@@ -53,13 +54,13 @@ public class BidRecord {
      * 创建时间
      */
     @TableField(value = "create_time")
-    private Date createTime;
+    private LocalDateTime createTime;
 
     /**
      * 更新时间
      */
     @TableField(value = "update_time")
-    private Date updateTime;
+    private LocalDateTime updateTime;
 
     /**
      * 删除标记(0默认,1删除)

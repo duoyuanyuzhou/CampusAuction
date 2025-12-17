@@ -4,6 +4,7 @@ import cn.dev33.satoken.stp.StpUtil;
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
+import org.multiverse.campusauction.annotation.CheckLogin;
 import org.multiverse.campusauction.annotation.CheckPermission;
 import org.multiverse.campusauction.annotation.OwnerOrAdmin;
 import org.multiverse.campusauction.entity.domain.User;
@@ -39,11 +40,12 @@ public class UserController {
         return login;
     }
 
-    @CheckPermission
+    @CheckLogin
     @GetMapping("/getUser")
-    public ApiResponse<User> getUser(@RequestParam("id") String id) {
+    public ApiResponse<User> getUser() {
+        Long userId = StpUtil.getLoginIdAsLong();
         LambdaQueryWrapper<User> wrapper = new LambdaQueryWrapper<>();
-        wrapper.eq(User::getId, id);
+        wrapper.eq(User::getId, userId);
         User user = userService.getOne(wrapper);
         return ApiResponse.ok(user);
     }
